@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h3 class="center">Selamat datang di SpaceChoco!</h3>
+        <div class="cardeck">
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+<script>
+    const cardeck = document.querySelector('.cardeck');
+    const name = document.querySelector('#name');
+    const year = document.querySelector('#year');
+    const rating = document.querySelector('#rating');
+
+ fetch('http://localhost:3000/api', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Personal-Name': 'SpaceChoco'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            for (let i = 0; i < data.length; i++) {
+                cardeck.innerHTML += `
+                    <div class="card">
+                        <div id="name">${data[i].name}</div>
+                        <div id="year">${data[i].year}</div>
+                        <div id="rating">${data[i].rating}</div>
+                    </div>
+                `
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+</script>
+</body>
+</html>
